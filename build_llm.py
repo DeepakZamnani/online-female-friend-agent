@@ -8,8 +8,10 @@ from dotenv import load_dotenv
 
 load_dotenv()
 def build_llm(model: str = "llama-3.1-8b-instant"):
-    
-    api_key = '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'
+    """
+    Build a coding assistant using Groq LLM + LangChain.
+    """
+    api_key = os.getenv("GROQ_API_KEY")
     print(api_key)
     if not api_key:
         raise ValueError("GROQ_API_KEY is not set in environment.")
@@ -17,7 +19,7 @@ def build_llm(model: str = "llama-3.1-8b-instant"):
     llm = ChatGroq(
         api_key=api_key,
         model_name=model,
-        temperature=0.2, 
+        temperature=0.2,  # lower temp = more precise, less "chatty"
     )
 
     memory = ConversationBufferMemory(return_messages=True)
